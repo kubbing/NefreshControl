@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		17571A991D6351F600917067 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17571A981D6351F600917067 /* AppDelegate.swift */; };
-		17571A9B1D6351F600917067 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17571A9A1D6351F600917067 /* ViewController.swift */; };
 		17571A9E1D6351F600917067 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17571A9C1D6351F600917067 /* Main.storyboard */; };
 		17571AA01D6351F600917067 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17571A9F1D6351F600917067 /* Assets.xcassets */; };
 		17571AA31D6351F600917067 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17571AA11D6351F600917067 /* LaunchScreen.storyboard */; };
+		17571AAB1D6352DA00917067 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17571AAA1D6352DA00917067 /* ViewController.swift */; };
+		17571AAD1D63532600917067 /* NefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17571AAC1D63532600917067 /* NefreshControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		17571A951D6351F600917067 /* NefreshControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NefreshControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17571A981D6351F600917067 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		17571A9A1D6351F600917067 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		17571A9D1D6351F600917067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		17571A9F1D6351F600917067 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17571AA21D6351F600917067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17571AA41D6351F600917067 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17571AAA1D6352DA00917067 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		17571AAC1D63532600917067 /* NefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NefreshControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				17571A981D6351F600917067 /* AppDelegate.swift */,
-				17571A9A1D6351F600917067 /* ViewController.swift */,
+				17571AAA1D6352DA00917067 /* ViewController.swift */,
 				17571A9C1D6351F600917067 /* Main.storyboard */,
 				17571A9F1D6351F600917067 /* Assets.xcassets */,
 				17571AA11D6351F600917067 /* LaunchScreen.storyboard */,
 				17571AA41D6351F600917067 /* Info.plist */,
+				17571AAC1D63532600917067 /* NefreshControl.swift */,
 			);
 			path = NefreshControl;
 			sourceTree = "<group>";
@@ -96,6 +99,7 @@
 				TargetAttributes = {
 					17571A941D6351F600917067 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = B634ZUCJKS;
 					};
 				};
 			};
@@ -135,7 +139,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17571A9B1D6351F600917067 /* ViewController.swift in Sources */,
+				17571AAD1D63532600917067 /* NefreshControl.swift in Sources */,
+				17571AAB1D6352DA00917067 /* ViewController.swift in Sources */,
 				17571A991D6351F600917067 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +256,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = NefreshControl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kubbing.NefreshControl;
@@ -262,6 +268,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = NefreshControl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kubbing.NefreshControl;
@@ -288,6 +295,7 @@
 				17571AA91D6351F600917067 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
