@@ -198,7 +198,6 @@ enum NefreshControlState {
         switch self.refreshState {
         case .Idle:
             let progress = max(min(offset.y / -84, 1.0), 0)
-            print("progress: \(progress)")
             self.imageView.alpha = progress
             
             if offset.y <= -84 {
