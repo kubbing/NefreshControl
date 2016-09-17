@@ -18,17 +18,17 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), 2*CGRectGetHeight(self.view.bounds))
+        let contentSize = CGSize(width: self.view.bounds.width, height: 2*self.view.bounds.height)
         
         self.scrollView.contentSize = contentSize
-        self.scrollView.backgroundColor = UIColor.whiteColor()
+        self.scrollView.backgroundColor = UIColor.white
         
         self.refreshControl = NefreshControl.attachedTo(
             self.scrollView,
-            withImage: UIImage(named: "<image>")!.imageWithRenderingMode(.AlwaysTemplate),
+            withImage: UIImage(named: "klip")!.withRenderingMode(.alwaysTemplate),
             target: self,
             selector: #selector(ViewController.refreshControlValueChanged(_:)))
-        self.refreshControl?.tintColor = UIColor.grayColor()
+        self.refreshControl?.tintColor = UIColor.gray
     }
     
     override func viewDidLayoutSubviews() {
@@ -43,20 +43,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
     // MARK: Actions
     
-    func refreshControlValueChanged(sender: NefreshControl) {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) { [unowned self] in
+    func refreshControlValueChanged(_ sender: NefreshControl) {
+        let delayTime = DispatchTime.now() + Double(Int64(2.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: delayTime) { [unowned self] in
             self.refreshControl?.endRefreshing()
         }
     }
     
     // MARK: <UIScrollViewDelegate>
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.refreshControl?.scrollViewDidScroll(scrollView)
     }
     
-    func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         self.refreshControl?.scrollViewWillBeginDecelerating(scrollView)
     }
 }
