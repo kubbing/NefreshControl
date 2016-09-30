@@ -13,6 +13,7 @@
 		17571AA31D6351F600917067 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17571AA11D6351F600917067 /* LaunchScreen.storyboard */; };
 		17571AAB1D6352DA00917067 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17571AAA1D6352DA00917067 /* ViewController.swift */; };
 		17571AAD1D63532600917067 /* NefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17571AAC1D63532600917067 /* NefreshControl.swift */; };
+		17B0484E1D9E92630097EC8C /* NefreshControl.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 17B0484D1D9E92630097EC8C /* NefreshControl.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		17571AA41D6351F600917067 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17571AAA1D6352DA00917067 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		17571AAC1D63532600917067 /* NefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NefreshControl.swift; sourceTree = "<group>"; };
+		17B0484D1D9E92630097EC8C /* NefreshControl.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NefreshControl.podspec; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				17571AA11D6351F600917067 /* LaunchScreen.storyboard */,
 				17571AA41D6351F600917067 /* Info.plist */,
 				17571AAC1D63532600917067 /* NefreshControl.swift */,
+				17B0484D1D9E92630097EC8C /* NefreshControl.podspec */,
 			);
 			path = NefreshControl;
 			sourceTree = "<group>";
@@ -100,6 +103,7 @@
 					17571A941D6351F600917067 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = B634ZUCJKS;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -128,6 +132,7 @@
 			files = (
 				17571AA31D6351F600917067 /* LaunchScreen.storyboard in Resources */,
 				17571AA01D6351F600917067 /* Assets.xcassets in Resources */,
+				17B0484E1D9E92630097EC8C /* NefreshControl.podspec in Resources */,
 				17571A9E1D6351F600917067 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +266,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kubbing.NefreshControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -273,6 +279,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kubbing.NefreshControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

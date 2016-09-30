@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "NefreshControl"
-  s.version      = "1.1.4"
+  s.version      = "1.1.6"
   s.license      = { :type => "Beerware", :file => 'LICENCE.txt' }
   s.summary      = "Killer Swift refresh control for iOS."
   s.homepage     = "https://github.com/kubbing/NefreshControl"
