@@ -10,26 +10,26 @@ import UIKit
 
 
 enum NefreshControlState {
-    case Idle
-    case Triggered
-    case Refreshing
-    case NeedsIdle
-    case WillIdle
+    case idle
+    case triggered
+    case refreshing
+    case needsIdle
+    case willIdle
 }
 
 
-@objc public class NefreshControl: UIControl, UIScrollViewDelegate {
+@objc open class NefreshControl: UIControl, UIScrollViewDelegate {
     
     weak var activityView: UIActivityIndicatorView!
     weak var imageView: UIImageView!
     var imageViewAnimationKey = "rotationAnimation"
     
     weak var scrollView: UIScrollView?
-    var scrollViewInset = UIEdgeInsetsZero
+    var scrollViewInset = UIEdgeInsets.zero
     
-    var refreshState: NefreshControlState = .Idle
+    var refreshState: NefreshControlState = .idle
     
-    public static func attachedTo(scrollView: UIScrollView, withImage image: UIImage, target: AnyObject, selector: Selector) -> NefreshControl {
+    open static func attachedTo(_ scrollView: UIScrollView, withImage image: UIImage, target: AnyObject, selector: Selector) -> NefreshControl {
         return NefreshControl(scrollView: scrollView, image: image, target: target, selector: selector)
     }
     
@@ -37,7 +37,7 @@ enum NefreshControlState {
         self.scrollView = scrollView
         self.scrollViewInset = scrollView.contentInset
         
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         self.backgroundColor = scrollView.backgroundColor
         self.layoutMargins = UIEdgeInsetsMake(32, 16, 32, 16)
@@ -48,26 +48,26 @@ enum NefreshControlState {
         self.addSubview(imageView)
         self.addConstraint(NSLayoutConstraint(
             item: imageView,
-            attribute: .CenterX,
-            relatedBy: .Equal,
+            attribute: .centerX,
+            relatedBy: .equal,
             toItem: self,
-            attribute: .CenterX,
+            attribute: .centerX,
             multiplier: 1.0,
             constant: 0))
         self.addConstraint(NSLayoutConstraint(
             item: imageView,
-            attribute: .Top,
-            relatedBy: .Equal,
+            attribute: .top,
+            relatedBy: .equal,
             toItem: self,
-            attribute: .TopMargin,
+            attribute: .topMargin,
             multiplier: 1.0,
             constant: 0))
         self.addConstraint(NSLayoutConstraint(
             item: imageView,
-            attribute: .Bottom,
-            relatedBy: .Equal,
+            attribute: .bottom,
+            relatedBy: .equal,
             toItem: self,
-            attribute: .BottomMargin,
+            attribute: .bottomMargin,
             multiplier: 1.0,
             constant: 0))
         self.imageView = imageView
@@ -76,22 +76,22 @@ enum NefreshControlState {
         translatesAutoresizingMaskIntoConstraints = false
         scrollView.addConstraint(NSLayoutConstraint(
             item: self,
-            attribute: .Width,
-            relatedBy: .Equal,
+            attribute: .width,
+            relatedBy: .equal,
             toItem: self.scrollView,
-            attribute: .Width,
+            attribute: .width,
             multiplier: 1.0,
             constant: 0.0))
         scrollView.addConstraint(NSLayoutConstraint(
             item: self,
-            attribute: .Bottom,
-            relatedBy: .Equal,
+            attribute: .bottom,
+            relatedBy: .equal,
             toItem: self.scrollView,
-            attribute: .Top,
+            attribute: .top,
             multiplier: 1.0,
             constant: 0.0))
         
-        self.addTarget(target, action: selector, forControlEvents: .ValueChanged)
+        self.addTarget(target, action: selector, for: .valueChanged)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -102,38 +102,38 @@ enum NefreshControlState {
         
     }
     
-    public func beginRefreshing() {
+    open func beginRefreshing() {
         guard let scrollView = self.scrollView else {
             return
         }
         
-        guard self.refreshState == .Idle || self.refreshState == .Triggered else {
+        guard self.refreshState == .idle || self.refreshState == .triggered else {
             return
         }
         
         let duration: CFTimeInterval = 1
         let rotations = 1
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.y")
-        rotationAnimation.toValue = NSNumber(double: M_PI * 2.0 * duration * Double(rotations))
+        rotationAnimation.toValue = NSNumber(value: M_PI * 2.0 * duration * Double(rotations) as Double)
         rotationAnimation.duration = duration;
-        rotationAnimation.cumulative = true;
+        rotationAnimation.isCumulative = true;
         rotationAnimation.repeatCount = 99;
-        imageView.layer.addAnimation(rotationAnimation, forKey: self.imageViewAnimationKey)
+        imageView.layer.add(rotationAnimation, forKey: self.imageViewAnimationKey)
         
         let currentOffset = scrollView.contentOffset
         let insets = self.scrollViewInset
         
-        UIView.animateWithDuration(
-            0.33,
+        UIView.animate(
+            withDuration: 0.30,
             delay: 0,
-            options: [ .BeginFromCurrentState, .AllowUserInteraction, .CurveEaseInOut ],
+            options: [.beginFromCurrentState, .allowUserInteraction],
             animations: { [weak self] (completed) in
                 guard let weakSelf = self else {
                     return
                 }
                 
                 let newInsets = UIEdgeInsetsMake(
-                    insets.top + CGRectGetHeight(weakSelf.bounds),
+                    insets.top + weakSelf.bounds.height,
                     insets.left,
                     insets.bottom,
                     insets.right)
@@ -143,30 +143,30 @@ enum NefreshControlState {
         
         })
         
-        self.refreshState = .Refreshing
-        self.sendActionsForControlEvents([ .ValueChanged ])
+        self.refreshState = .refreshing
+        self.sendActions(for: [ .valueChanged ])
     }
     
-    public func endRefreshing() {
+    open func endRefreshing() {
         guard let scrollView = self.scrollView else {
             return
         }
         
-        guard self.refreshState == .Refreshing || self.refreshState == .NeedsIdle else {
+        guard self.refreshState == .refreshing || self.refreshState == .needsIdle else {
             return
         }
         
-        guard scrollView.dragging == false else {
-            self.refreshState = .NeedsIdle
+        guard scrollView.isDragging == false else {
+            self.refreshState = .needsIdle
             return
         }
         
         let originalInsets = self.scrollViewInset
         
-        UIView.animateWithDuration(
-            0.33,
+        UIView.animate(
+            withDuration: 0.30,
             delay: 0,
-            options: [ .BeginFromCurrentState, .AllowUserInteraction, .CurveEaseInOut ],
+            options: [.beginFromCurrentState, .allowUserInteraction],
             animations: { [weak self] (completed) in
                 guard let weakSelf = self else {
                     return
@@ -175,17 +175,17 @@ enum NefreshControlState {
                 weakSelf.imageView.alpha = 0
 
                 scrollView.contentInset = originalInsets
-                scrollView.contentOffset = CGPointZero
+                scrollView.contentOffset = CGPoint.zero
             }, completion: { [weak self] (completed) in
                 guard let weakSelf = self else {
                     return
                 }
                 
-                weakSelf.imageView.layer.removeAnimationForKey(weakSelf.imageViewAnimationKey)
-                weakSelf.refreshState = .Idle
+                weakSelf.imageView.layer.removeAnimation(forKey: weakSelf.imageViewAnimationKey)
+                weakSelf.refreshState = .idle
         })
         
-        self.refreshState = .WillIdle
+        self.refreshState = .willIdle
     }
     
     // MARK: Actions
@@ -196,13 +196,13 @@ enum NefreshControlState {
         }
         
         switch self.refreshState {
-        case .Idle:
+        case .idle:
             let progress = max(min(offset.y / -84, 1.0), 0)
             self.imageView.alpha = progress
             
             if offset.y <= -84 {
-                if scrollView.dragging {
-                    self.refreshState = .Triggered
+                if scrollView.isDragging {
+                    self.refreshState = .triggered
                 }
                 else {
                     self.beginRefreshing()
@@ -216,15 +216,15 @@ enum NefreshControlState {
     
     // MARK: <UIScrollViewDelegate>
     
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.process(newOffset: scrollView.contentOffset)
     }
     
-    public func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
-        if self.refreshState == .Triggered {
+    open func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        if self.refreshState == .triggered {
             self.beginRefreshing()
         }
-        else if self.refreshState == .NeedsIdle {
+        else if self.refreshState == .needsIdle {
             self.endRefreshing()
         }
     }
