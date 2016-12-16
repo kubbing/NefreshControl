@@ -20,20 +20,20 @@ enum NefreshControlState {
 
 @objc open class NefreshControl: UIControl, UIScrollViewDelegate {
     
-    weak var activityView: UIActivityIndicatorView!
-    weak var imageView: UIImageView!
-    var imageViewAnimationKey = "rotationAnimation"
+    fileprivate weak var activityView: UIActivityIndicatorView!
+    fileprivate weak var imageView: UIImageView!
+    fileprivate let imageViewAnimationKey = "rotationAnimation"
     
-    weak var scrollView: UIScrollView?
-    var scrollViewInset = UIEdgeInsets.zero
+    fileprivate weak var scrollView: UIScrollView?
+    fileprivate var scrollViewInset = UIEdgeInsets.zero
     
-    var refreshState: NefreshControlState = .idle
+    fileprivate var refreshState: NefreshControlState = .idle
     
     open static func attachedTo(_ scrollView: UIScrollView, withImage image: UIImage, target: AnyObject, selector: Selector) -> NefreshControl {
         return NefreshControl(scrollView: scrollView, image: image, target: target, selector: selector)
     }
     
-    init(scrollView: UIScrollView, image: UIImage, target: AnyObject, selector: Selector) {
+    fileprivate init(scrollView: UIScrollView, image: UIImage, target: AnyObject, selector: Selector) {
         self.scrollView = scrollView
         self.scrollViewInset = scrollView.contentInset
         
@@ -121,6 +121,10 @@ enum NefreshControlState {
         imageView.layer.add(rotationAnimation, forKey: self.imageViewAnimationKey)
         
         let currentOffset = scrollView.contentOffset
+        var targetOffset = currentOffset
+        if currentOffset == CGPoint.zero {
+            targetOffset.y -= self.bounds.height
+        }
         let insets = self.scrollViewInset
         
         UIView.animate(
@@ -138,12 +142,15 @@ enum NefreshControlState {
                     insets.bottom,
                     insets.right)
                 scrollView.contentInset = newInsets
-                scrollView.contentOffset = currentOffset
+                scrollView.contentOffset = targetOffset
             }, completion: { (completed) in
-        
+                
         })
         
         self.refreshState = .refreshing
+    }
+    
+    fileprivate func notify() {
         self.sendActions(for: [ .valueChanged ])
     }
     
@@ -190,7 +197,7 @@ enum NefreshControlState {
     
     // MARK: Actions
     
-    func process(newOffset offset: CGPoint) {
+    fileprivate func process(newOffset offset: CGPoint) {
         guard let scrollView = self.scrollView else {
             return
         }
@@ -206,6 +213,7 @@ enum NefreshControlState {
                 }
                 else {
                     self.beginRefreshing()
+                    self.notify()
                 }
             }
             break
@@ -223,6 +231,7 @@ enum NefreshControlState {
     open func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if self.refreshState == .triggered {
             self.beginRefreshing()
+            self.notify()
         }
         else if self.refreshState == .needsIdle {
             self.endRefreshing()

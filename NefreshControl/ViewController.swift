@@ -29,6 +29,14 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             target: self,
             selector: #selector(ViewController.refreshControlValueChanged(_:)))
         self.refreshControl?.tintColor = UIColor.gray
+        
+        let button = UIButton(type: .system)
+        button.setTitle("Refresh!", for: .normal)
+        button.addTarget(self, action: #selector(ViewController.refreshButtonAction(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[button]-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["button" : button]))
+        self.view.addConstraint(NSLayoutConstraint(item: button, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0))
     }
     
     override func viewDidLayoutSubviews() {
@@ -42,6 +50,15 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
 
     // MARK: Actions
+    
+    func refreshButtonAction(_ sender: UIButton) {
+        self.refreshControl?.beginRefreshing()
+        
+        let delayTime = DispatchTime.now() + Double(Int64(2.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: delayTime) { [unowned self] in
+            self.refreshControl?.endRefreshing()
+        }
+    }
     
     func refreshControlValueChanged(_ sender: NefreshControl) {
         let delayTime = DispatchTime.now() + Double(Int64(2.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
